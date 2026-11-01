@@ -1,10 +1,8 @@
-\# Olist E-commerce SQL Data Analysis
+ Olist E-commerce SQL Data Analysis
 
 
 
-\## Project Overview
-
-
+Project Overview
 
 This project explores the Olist Brazilian e-commerce marketplace dataset using MySQL. The goal is to analyse order performance, customer behaviour, product sales, payment preferences and delivery operations using SQL.
 
@@ -14,7 +12,7 @@ The project focuses on transforming raw relational data into meaningful business
 
 
 
-\## Business Questions
+ Business Questions
 
 
 
@@ -42,7 +40,7 @@ This analysis investigates:
 
 
 
-\## Dataset
+ Dataset
 
 
 
@@ -74,7 +72,7 @@ The dataset contains historical Brazilian e-commerce transactions.
 
 
 
-\## Tools and Technologies
+ Tools and Technologies
 
 
 
@@ -86,7 +84,7 @@ The dataset contains historical Brazilian e-commerce transactions.
 
 
 
-\## SQL Skills Demonstrated
+ SQL Skills Demonstrated
 
 
 
@@ -114,7 +112,7 @@ The dataset contains historical Brazilian e-commerce transactions.
 
 
 
-\## Key Findings
+ Key Findings
 
 
 
@@ -135,8 +133,7 @@ The dataset contains historical Brazilian e-commerce transactions.
 \- Late deliveries were associated with lower average customer review scores.
 
 
-
-\## Business Recommendations
+ Business Recommendations
 
 
 
@@ -150,9 +147,7 @@ The dataset contains historical Brazilian e-commerce transactions.
 
 \- Improve product-category data completeness.
 
-
-
-\## Data Quality and Limitations
+ Data Quality and Limitations
 
 
 
@@ -167,8 +162,7 @@ Some ZIP prefixes could not be matched to geolocation records. Geographic distan
 The dataset is historical, and observed relationships do not establish causation.
 
 
-
-\## Project Structure
+ Project Structure
 
 
 
@@ -180,7 +174,7 @@ The dataset is historical, and observed relationships do not establish causation
 
 
 
-\## Conclusion
+ Conclusion
 
 
 
@@ -188,5 +182,5 @@ This project demonstrates how SQL can be used to explore a relational e-commerce
 
 
 
-\*\*Project focus:\*\* SQL-based business analysis.
+Project focus: SQL-based business analysis.
 
