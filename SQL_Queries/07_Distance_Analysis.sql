@@ -131,31 +131,41 @@ FROM temp_delivery_locations;
 
 -- 7. ANALYSE LATE DELIVERY BY DISTANCE GROUP
 
+-- 7. ANALYSE LATE DELIVERY BY DISTANCE GROUP
+
 SELECT
     CASE
         WHEN distance_km < 100 THEN 'Under 100 km'
-        WHEN distance_km < 500 THEN '100-499 km'
-        WHEN distance_km < 1000 THEN '500-999 km'
-        WHEN distance_km < 2000 THEN '1000-1999 km'
+        WHEN distance_km < 500 THEN '100 to <500 km'
+        WHEN distance_km < 1000 THEN '500 to <1000 km'
+        WHEN distance_km < 2000 THEN '1000 to <2000 km'
         ELSE '2000 km and above'
     END AS distance_group,
 
     COUNT(*) AS seller_order_records,
 
-    COUNT(DISTINCT CASE
-        WHEN order_delivered_customer_date >
-             order_estimated_delivery_date
-        THEN order_id
-    END) AS late_orders,
-
-    ROUND(
-        COUNT(DISTINCT CASE
+    SUM(
+        CASE
             WHEN order_delivered_customer_date >
                  order_estimated_delivery_date
-            THEN order_id
-        END) * 100.0 / COUNT(*),
+            THEN 1
+            ELSE 0
+        END
+    ) AS late_seller_order_records,
+
+    ROUND(
+        SUM(
+            CASE
+                WHEN order_delivered_customer_date >
+                     order_estimated_delivery_date
+                THEN 1
+                ELSE 0
+            END
+        ) * 100.0 / COUNT(*),
         2
     ) AS late_delivery_percentage,
+
+    COUNT(DISTINCT order_id) AS distinct_orders,
 
     ROUND(AVG(distance_km), 2) AS average_distance_km
 
@@ -164,3 +174,5 @@ FROM temp_delivery_distance
 GROUP BY distance_group
 
 ORDER BY MIN(distance_km);
+
+
