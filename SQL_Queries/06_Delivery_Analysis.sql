@@ -63,7 +63,8 @@ WHERE order_status = 'delivered'
   AND order_purchase_timestamp IS NOT NULL
   AND order_delivered_customer_date IS NOT NULL
   AND CAST(order_delivered_customer_date AS CHAR)
-      NOT LIKE '0000-00-00%';
+      AND CAST(order_purchase_timestamp AS CHAR)
+    NOT LIKE '0000-00-00%';
 
 
 -- 3. AVERAGE ORDER PROCESSING TIME
@@ -84,7 +85,9 @@ FROM olist_orders_dataset
 
 WHERE order_status = 'delivered'
   AND order_approved_at IS NOT NULL
-  AND order_delivered_carrier_date IS NOT NULL;
+  AND order_delivered_carrier_date IS NOT NULL AND CAST(order_approved_at AS CHAR)
+AND CAST(order_delivered_carrier_date AS CHAR)
+    NOT LIKE '0000-00-00%';
 
 
 -- 4. AVERAGE TRANSIT TIME
@@ -106,8 +109,9 @@ FROM olist_orders_dataset
 WHERE order_status = 'delivered'
   AND order_delivered_carrier_date IS NOT NULL
   AND order_delivered_customer_date IS NOT NULL
-  AND CAST(order_delivered_customer_date AS CHAR)
-      NOT LIKE '0000-00-00%';
+  AND CAST(order_delivered_customer_date AS CHAR) 
+      AND CAST(order_delivered_carrier_date AS CHAR)
+    NOT LIKE '0000-00-00%';
 
 
 -- 5. LATE DELIVERY ANALYSIS BY CUSTOMER STATE
