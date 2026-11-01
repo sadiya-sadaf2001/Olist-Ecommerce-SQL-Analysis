@@ -1,0 +1,106 @@
+-- =====================================================
+-- OLIST E-COMMERCE SQL PROJECT
+-- FILE: 02_Order_Analysis.sql
+-- PURPOSE: Analyse order performance and sales
+-- DATABASE: MySQL
+-- =====================================================
+
+
+-- 1. TOTAL NUMBER OF ORDERS
+
+SELECT
+    COUNT(*) AS total_orders
+FROM olist_orders_dataset;
+
+
+-- 2. ORDER STATUS DISTRIBUTION
+
+SELECT
+    order_status,
+    COUNT(*) AS total_orders
+FROM olist_orders_dataset
+GROUP BY order_status
+ORDER BY total_orders DESC;
+
+
+-- 3. DELIVERED ORDER PERCENTAGE
+
+SELECT
+    COUNT(*) AS total_orders,
+    SUM(CASE
+        WHEN order_status = 'delivered' THEN 1
+        ELSE 0
+    END) AS delivered_orders,
+    ROUND(
+        SUM(CASE
+            WHEN order_status = 'delivered' THEN 1
+            ELSE 0
+        END) * 100.0 / COUNT(*),
+        2
+    ) AS delivered_percentage
+FROM olist_orders_dataset;
+
+
+-- 4. CANCELLED ORDER PERCENTAGE
+
+SELECT
+    COUNT(*) AS total_orders,
+    SUM(CASE
+        WHEN order_status = 'canceled' THEN 1
+        ELSE 0
+    END) AS canceled_orders,
+    ROUND(
+        SUM(CASE
+            WHEN order_status = 'canceled' THEN 1
+            ELSE 0
+        END) * 100.0 / COUNT(*),
+        2
+    ) AS cancellation_percentage
+FROM olist_orders_dataset;
+
+
+-- 5. TOTAL ITEM VALUE
+
+SELECT
+    ROUND(SUM(price), 2) AS total_item_value
+FROM olist_order_items_dataset;
+
+
+-- 6. TOTAL FREIGHT VALUE
+
+SELECT
+    ROUND(SUM(freight_value), 2) AS total_freight_value
+FROM olist_order_items_dataset;
+
+
+-- 7. COMBINED ITEM AND FREIGHT VALUE
+
+SELECT
+    ROUND(SUM(price + freight_value), 2)
+        AS total_item_and_freight_value
+FROM olist_order_items_dataset;
+
+
+-- 8. FREIGHT SHARE OF COMBINED VALUE
+
+SELECT
+    ROUND(
+        SUM(freight_value) * 100.0 /
+        SUM(price + freight_value),
+        2
+    ) AS freight_percentage
+FROM olist_order_items_dataset;
+
+
+-- 9. NUMBER OF DISTINCT ORDERS WITH ITEMS
+
+SELECT
+    COUNT(DISTINCT order_id) AS orders_with_items
+FROM olist_order_items_dataset;
+
+
+-- 10. NUMBER OF DISTINCT PRODUCTS SOLD
+
+SELECT
+    COUNT(DISTINCT product_id) AS distinct_products_sold
+FROM olist_order_items_dataset;
